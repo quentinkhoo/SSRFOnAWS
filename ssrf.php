@@ -3,27 +3,16 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	// check if argument is a valid URL
 	if(filter_var($_POST["url"], FILTER_VALIDATE_URL)) {
-		// parse URL
-		//$r = parse_url($_POST["url"]);
-		//print_r($r);
-		// check if host ends with google.com
-		/*
-		if(preg_match('/wttr/', $r["host"])) {
-			// get page from URL
-			echo "Curling ". $_POST["url"];
-			exec('curl "'.$r["host"].'"', $urlArray);
-			echo '<pre>';
-			print_r($urlArray);
-			echo '</pre>';
+		$curl_object = curl_init();
 
-		} else {
-			$url_error = "Error: Not wttr URL?";
-		}
-		*/
-		exec('curl "'.$_POST["url"].'"',$urlArray);
-		echo '<pre>';
-		print_r($urlArray);
-		echo '</pre>';
+		curl_setopt($curl_object, CURLOPT_RETURNTRANSFER, 1);
+
+		curl_setopt($curl_object, CURLOPT_URL, $_POST["url"]);
+
+		$result = curl_exec($curl_object);
+		
+		echo $result;
+
 	} else {
 		$url_error = "Error: Invalid URL";
 	}
