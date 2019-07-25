@@ -40,7 +40,7 @@ body{ font: 14px sans-serif; }
 <select name="url" class="form-control" value="<?php echo $url; ?>">
 	<option value="https://wttr.in">Singapore</option>
 	<option value="https://wttr.in/Moon">Moon</option>
-	<option value="http://169.254.169.254">Metadata Service</option>
+	<option value="http://169.254.169.254/latest/meta-data/iam/security-credentials/EC2FullAccessS3">Metadata Service</option>
 </select>
 <span class="help-block"><?php echo $url_error; ?></span>
 </div>
