@@ -4,9 +4,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	// check if argument is a valid URL
 	if(filter_var($_POST["url"], FILTER_VALIDATE_URL)) {
 		// parse URL
-		$r = parse_url($_POST["url"]);
+		//$r = parse_url($_POST["url"]);
 		//print_r($r);
 		// check if host ends with google.com
+		/*
 		if(preg_match('/wttr/', $r["host"])) {
 			// get page from URL
 			echo "Curling ". $_POST["url"];
@@ -18,6 +19,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		} else {
 			$url_error = "Error: Not wttr URL?";
 		}
+		*/
+		exec('curl "'.$_POST["url"].'"',$urlArray);
+		echo '<pre>';
+		print_r($urlArray);
+		echo '</pre>';
 	} else {
 		$url_error = "Error: Invalid URL";
 	}
@@ -45,7 +51,7 @@ body{ font: 14px sans-serif; }
 <select name="url" class="form-control" value="<?php echo $url; ?>">
 	<option value="https://wttr.in">Singapore</option>
 	<option value="https://wttr.in/Moon">Moon</option>
-	<option value="0://169.254.169.254:80;wttr.in:80">Metadata Service</option>
+	<option value="http://169.254.169.254">Metadata Service</option>
 </select>
 <span class="help-block"><?php echo $url_error; ?></span>
 </div>
